@@ -1,0 +1,9 @@
+template:
+  name: "modern"
+  description: "CV template với phong cách modern"
+  colors:
+    primary: "#667eea"
+    secondary: "#764ba2"
+  fonts:
+    heading: "Inter"
+    body: "Source Sans Pro"

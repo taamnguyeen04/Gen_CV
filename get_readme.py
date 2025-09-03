@@ -6,6 +6,10 @@ import os
 
 load_dotenv()
 
+# Load environment variables
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
 API_HEADERS = {
     "Accept": "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
@@ -512,8 +516,22 @@ def print_analysis_report(analysis: dict):
 if __name__ == "__main__":
     # Test with a public repository
     repo_url = "https://github.com/ultralytics/ultralytics"  # Example
+    
+    # Check GitHub token
+    if GITHUB_TOKEN:
+        print("✅ Đã tìm thấy GitHub token - Rate limit: 5000 requests/hour")
+    else:
+        print("⚠️  Không tìm thấy GitHub token!")
+        print("🔧 Để tăng rate limit (từ 60 lên 5000 requests/hour):")
+        print("   1. Tạo GitHub token tại: https://github.com/settings/tokens")
+        print("   2. Chọn scope: public_repo")
+        print("   3. Thêm vào file .env: GITHUB_TOKEN=your_token_here")
+        print("📡 Đang tiếp tục với rate limit thấp (60 requests/hour)...\n")
+    
     try:
-        analysis = analyze_repo(repo_url, include_ai_description=True)
+        analysis = analyze_repo(repo_url, token=GITHUB_TOKEN, include_ai_description=True)
         print_analysis_report(analysis)
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"❌ Error: {e}")
+        if "rate limit" in str(e).lower():
+            print("\n💡 Gợi ý: Thêm GitHub token vào file .env để tăng rate limit")

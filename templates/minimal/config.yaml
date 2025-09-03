@@ -1,0 +1,9 @@
+template:
+  name: "minimal"
+  description: "CV template với phong cách minimal"
+  colors:
+    primary: "#2c3e50"
+    secondary: "#34495e"
+  fonts:
+    heading: "Georgia"
+    body: "Times New Roman"

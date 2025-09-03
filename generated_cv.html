@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Trần Minh Tâm - CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background: #f8fafc;
+        }
+
+        .cv-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .cv-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cv-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" style="stop-color:white;stop-opacity:0.1"/><stop offset="100%" style="stop-color:white;stop-opacity:0"/></radialGradient></defs><circle fill="url(%23a)" cx="10" cy="10" r="10"/><circle fill="url(%23a)" cx="90" cy="10" r="10"/></svg>');
+            opacity: 0.3;
+        }
+
+        .cv-header * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .name {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.8;
+        }
+
+        .cv-body {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            padding: 3rem;
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        .sidebar {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            height: fit-content;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .summary {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #475569;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .experience-item, .project-item {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .experience-item:hover, .project-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .job-title, .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .company, .tech-stack {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .duration {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievements, .project-highlights {
+            list-style: none;
+        }
+
+        .achievements li, .project-highlights li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+
+        .achievements li::before, .project-highlights li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .skill-category-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .education-item, .cert-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .degree, .cert-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .school, .issuer {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .tech-stack-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .tech-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .cv-container {
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+            }
+            .cv-body {
+                grid-template-columns: 1fr 280px;
+                gap: 2rem;
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cv-body {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .name {
+                font-size: 2.5rem;
+            }
+            .project-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <header class="cv-header">
+            <h1 class="name">Nguyễn Trần Minh Tâm</h1>
+            <p class="title">AI Engineering</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    📧 <a href="mailto:tam.nguyentranminh04@hcmut.edu.vn">tam.nguyentranminh04@hcmut.edu.vn</a>
+                </div>
+                <div class="contact-item">
+                    📱 0899781007
+                </div>
+                <div class="contact-item">
+                    📍 TP. Hồ Chí Minh, Việt Nam
+                </div>
+                
+                <div class="contact-item">
+                    🔗 <a href="https://github.com/taamnguyeen04" target="_blank">GitHub</a>
+                </div>
+                
+                
+                <div class="contact-item">
+                    💼 <a href="linkedin.com/in/minh-tâm-nguyễn-trần-73073820b" target="_blank">LinkedIn</a>
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="cv-body">
+            <main class="main-content">
+                
+                <div class="summary">
+                    Passionate AI Engineering với 1+ năm kinh nghiệm phát triển ứng dụng hiện đại. Sử dụng Python, C/CPP và các công nghệ tiên tiến. Đam mê về clean code và user experience.
+                </div>
+                
+
+                <section class="section">
+                    <h2 class="section-title">Kinh nghiệm làm việc</h2>
+                    
+                    <div class="experience-item">
+                        <h3 class="job-title">AI Engineering Intern</h3>
+                        <div class="company">Upskill Academy</div>
+                        <div class="duration">01/2025 - Present • TP.HCM</div>
+                        <ul class="achievements">
+                            
+                            <li>Built an AI-powered CV scanning system allowing users to upload CV and job description (JD) in both PDF and image formats.</li>
+                            
+                        </ul>
+                    </div>
+                    
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Dự án nổi bật</h2>
+                    
+                    <div class="project-item">
+                        <h3 class="project-title">Scan-CV</h3>
+                        <p style="color: #475569; margin-bottom: 1rem;">Dự án Scan-CV là ứng dụng được phát triển bằng Python, sử dụng các thư viện như PyTorch, Pandas, và Streamlit, cùng với hạ tầng Google Cloud. Ứng dụng này tập trung vào xử lý và phân tích dữ liệu từ CV, tận dụng các công cụ như NumPy, PIL/Pillow, và SQLAlchemy để trích xuất thông tin và trình bày trực quan thông qua Matplotlib. Mục tiêu của dự án là tự động hóa quy trình sàng lọc CV, giúp tiết kiệm thời gian và nâng cao hiệu quả tuyển dụng.</p>
+                        
+                        <div class="tech-stack-tags">
+                            
+                            <span class="tech-tag">Environment Variables</span>
+                            
+                            <span class="tech-tag">Google Cloud</span>
+                            
+                            <span class="tech-tag">Matplotlib</span>
+                            
+                            <span class="tech-tag">NumPy</span>
+                            
+                            <span class="tech-tag">PIL/Pillow</span>
+                            
+                            <span class="tech-tag">Pandas</span>
+                            
+                            <span class="tech-tag">PyTorch</span>
+                            
+                            <span class="tech-tag">Pydantic</span>
+                            
+                        </div>
+
+                        
+                        <ul class="project-highlights" style="margin-top: 1rem;">
+                            
+                            <li>Phát triển bằng Python</li>
+                            
+                            <li>Sử dụng Environment Variables, Google Cloud, Matplotlib</li>
+                            
+                        </ul>
+                        
+
+                        <div class="project-links">
+                            
+                            <a href="https://github.com/taamnguyeen04/Scan-CV" target="_blank" class="project-link">
+                                🔗 GitHub
+                            </a>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <h3 class="project-title">MangoLeaf</h3>
+                        <p style="color: #475569; margin-bottom: 1rem;">Dự án MangoLeaf là một ứng dụng xử lý ảnh và thị giác máy tính được xây dựng bằng Python, sử dụng các thư viện như NumPy, OpenCV, PIL/Pillow, PyTorch và Matplotlib. Dự án tập trung vào việc thử nghiệm và triển khai các thuật toán xử lý ảnh, phân tích và nhận dạng hình ảnh.</p>
+                        
+                        <div class="tech-stack-tags">
+                            
+                            <span class="tech-tag">Matplotlib</span>
+                            
+                            <span class="tech-tag">NumPy</span>
+                            
+                            <span class="tech-tag">OpenCV</span>
+                            
+                            <span class="tech-tag">PIL/Pillow</span>
+                            
+                            <span class="tech-tag">PyTorch</span>
+                            
+                        </div>
+
+                        
+                        <ul class="project-highlights" style="margin-top: 1rem;">
+                            
+                            <li>Phát triển bằng Python</li>
+                            
+                            <li>Sử dụng Matplotlib, NumPy, OpenCV</li>
+                            
+                        </ul>
+                        
+
+                        <div class="project-links">
+                            
+                            <a href="https://github.com/taamnguyeen04/MangoLeaf" target="_blank" class="project-link">
+                                🔗 GitHub
+                            </a>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <h3 class="project-title">retreival_backend</h3>
+                        <p style="color: #475569; margin-bottom: 1rem;">Dự án `retreival_backend` là một hệ thống backend được xây dựng bằng Python, sử dụng FastAPI để cung cấp API hiệu năng cao. Ứng dụng tận dụng PyTorch và OpenCV cho các tác vụ xử lý ảnh, đồng thời được đóng gói và triển khai dễ dàng bằng Docker và Docker Compose, đảm bảo tính nhất quán và khả năng mở rộng.</p>
+                        
+                        <div class="tech-stack-tags">
+                            
+                            <span class="tech-tag">Docker</span>
+                            
+                            <span class="tech-tag">Docker Compose</span>
+                            
+                            <span class="tech-tag">FastAPI</span>
+                            
+                            <span class="tech-tag">Make</span>
+                            
+                            <span class="tech-tag">OpenCV</span>
+                            
+                            <span class="tech-tag">PIL/Pillow</span>
+                            
+                            <span class="tech-tag">PyTest</span>
+                            
+                            <span class="tech-tag">PyTorch</span>
+                            
+                        </div>
+
+                        
+                        <ul class="project-highlights" style="margin-top: 1rem;">
+                            
+                            <li>Phát triển bằng Python</li>
+                            
+                            <li>Sử dụng Docker, Docker Compose, FastAPI</li>
+                            
+                        </ul>
+                        
+
+                        <div class="project-links">
+                            
+                            <a href="https://github.com/Ripefog/retreival_backend" target="_blank" class="project-link">
+                                🔗 GitHub
+                            </a>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                <section class="section">
+                    <h2 class="section-title" style="font-size: 1.2rem;">Kỹ năng</h2>
+                    <div class="skills-grid">
+                        
+                        <div class="skill-category">
+                            <div class="skill-category-title">Programming Languages</div>
+                            <div class="skill-tags">
+                                
+                                <span class="skill-tag">Python</span>
+                                
+                                <span class="skill-tag">C/CPP</span>
+                                
+                                <span class="skill-tag">Google Cloud</span>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-category-title">Deep Learning And Machine Learning</div>
+                            <div class="skill-tags">
+                                
+                                <span class="skill-tag">PyTorch</span>
+                                
+                                <span class="skill-tag">scikit-learn</span>
+                                
+                                <span class="skill-tag">OpenCV</span>
+                                
+                                <span class="skill-tag">Numpy</span>
+                                
+                                <span class="skill-tag">Pandas</span>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-category-title">Generative Models</div>
+                            <div class="skill-tags">
+                                
+                                <span class="skill-tag">GANs</span>
+                                
+                                <span class="skill-tag">VAEs</span>
+                                
+                                <span class="skill-tag">Diffusion Model</span>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-category-title">Computer Vision</div>
+                            <div class="skill-tags">
+                                
+                                <span class="skill-tag">YOLO</span>
+                                
+                                <span class="skill-tag">RCNN</span>
+                                
+                                <span class="skill-tag">Fast RCNN</span>
+                                
+                                <span class="skill-tag">Faster RCNN</span>
+                                
+                                <span class="skill-tag">DeepLab</span>
+                                
+                                <span class="skill-tag">Co-DETR</span>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-category-title">Databases</div>
+                            <div class="skill-tags">
+                                
+                                <span class="skill-tag">MySQL</span>
+                                
+                                <span class="skill-tag">MongoDB</span>
+                                
+                                <span class="skill-tag">Elasticsearch</span>
+                                
+                                <span class="skill-tag">Milvus</span>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-category-title">Backend</div>
+                            <div class="skill-tags">
+                                
+                                <span class="skill-tag">Fast API</span>
+                                
+                                <span class="skill-tag">FastAPI</span>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-category-title">Tools</div>
+                            <div class="skill-tags">
+                                
+                                <span class="skill-tag">Git</span>
+                                
+                                <span class="skill-tag">Docker</span>
+                                
+                                <span class="skill-tag">Pandas</span>
+                                
+                                <span class="skill-tag">OpenCV</span>
+                                
+                                <span class="skill-tag">Matplotlib</span>
+                                
+                                <span class="skill-tag">PIL/Pillow</span>
+                                
+                                <span class="skill-tag">PyTorch</span>
+                                
+                                <span class="skill-tag">NumPy</span>
+                                
+                                <span class="skill-tag">Pydantic</span>
+                                
+                                <span class="skill-tag">Docker Compose</span>
+                                
+                                <span class="skill-tag">Environment Variables</span>
+                                
+                                <span class="skill-tag">Make</span>
+                                
+                                <span class="skill-tag">PyTest</span>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title" style="font-size: 1.2rem;">Học vấn</h2>
+                    
+                    <div class="education-item">
+                        <div class="degree">Cử nhân Khoa học Máy tính</div>
+                        <div class="school">Đại học Bách Khoa TP.HCM</div>
+                        <div class="duration" style="font-size: 0.85rem;">2022 - 2026</div>
+                        
+                        <div style="color: #64748b; font-size: 0.85rem;">GPA: 8.5/10</div>
+                        
+                    </div>
+                    
+                </section>
+
+                
+                <section class="section">
+                    <h2 class="section-title" style="font-size: 1.2rem;">Chứng chỉ</h2>
+                    
+                    <div class="cert-item">
+                        <div class="cert-name">Deep Learning Specialization</div>
+                        <div class="issuer">Coursera - Andrew Ng</div>
+                        <div class="duration" style="font-size: 0.85rem;">2024</div>
+                    </div>
+                    
+                    <div class="cert-item">
+                        <div class="cert-name">Computer Vision Certificate</div>
+                        <div class="issuer">Stanford Online</div>
+                        <div class="duration" style="font-size: 0.85rem;">2024</div>
+                    </div>
+                    
+                </section>
+                
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

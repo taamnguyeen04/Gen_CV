@@ -1,0 +1,9 @@
+template:
+  name: "tech"
+  description: "CV template với phong cách tech"
+  colors:
+    primary: "#00d9ff"
+    secondary: "#ff006e"
+  fonts:
+    heading: "JetBrains Mono"
+    body: "Inter"

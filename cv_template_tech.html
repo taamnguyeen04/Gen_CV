@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ cv.personal_info.name }} - CV</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #00d9ff;
+            --secondary: #ff006e;
+            --accent: #8338ec;
+            --dark: #0a0e27;
+            --darker: #050816;
+            --light: #ffffff;
+            --gray: #64748b;
+            --gray-light: #f1f5f9;
+            --success: #00f5a0;
+            --warning: #ffd60a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            min-height: 100vh;
+        }
+
+        .cv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--primary)20 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--secondary)20 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, var(--accent)20 0%, transparent 50%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .cv-header {
+            position: relative;
+            padding: 4rem 3rem 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary)10, var(--accent)10);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+
+        .title::before {
+            content: '<';
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .title::after {
+            content: '/>';
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.2);
+        }
+
+        .contact-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .contact-card a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .cv-body {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            padding: 3rem;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 3rem 2rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '//';
+            color: var(--secondary);
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .terminal-summary {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .terminal-summary::before {
+            content: '> about_me.md';
+            position: absolute;
+            top: -12px;
+            left: 1rem;
+            background: var(--dark);
+            padding: 0 0.5rem;
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .experience-item, .project-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-item::before, .project-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .experience-item:hover, .project-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 40px rgba(0, 217, 255, 0.15);
+        }
+
+        .job-title, .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .company, .project-meta {
+            color: var(--primary);
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .duration {
+            background: var(--accent);
+            color: var(--light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .achievements, .project-highlights {
+            list-style: none;
+        }
+
+        .achievements li, .project-highlights li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .achievements li::before, .project-highlights li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+        }
+
+        .tech-matrix {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .tech-category {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-category-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-description {
+            color: var(--gray);
+            margin: 1rem 0;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .project-tech-badge {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-link {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-link:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+
+        .education-timeline, .cert-grid {
+            space-y: 1.5rem;
+        }
+
+        .education-item, .cert-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+        }
+
+        .degree, .cert-name {
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .school, .cert-issuer {
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .education-duration, .cert-date {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .cv-container {
+                background: white;
+            }
+            .cv-container::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .cv-body {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .name {
+                font-size: 2.5rem;
+            }
+            .main-content, .sidebar {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .project-links {
+                flex-direction: column;
+            }
+            .cv-header {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <header class="cv-header">
+            <h1 class="name">{{ cv.personal_info.name }}</h1>
+            <p class="title">{{ cv.personal_info.title }}</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="contact-card-icon">📧</span>
+                    <a href="mailto:{{ cv.personal_info.email }}">{{ cv.personal_info.email }}</a>
+                </div>
+                <div class="contact-card">
+                    <span class="contact-card-icon">📱</span>
+                    {{ cv.personal_info.phone }}
+                </div>
+                <div class="contact-card">
+                    <span class="contact-card-icon">📍</span>
+                    {{ cv.personal_info.location }}
+                </div>
+                {% if cv.personal_info.github %}
+                <div class="contact-card">
+                    <span class="contact-card-icon">🔗</span>
+                    <a href="{{ cv.personal_info.github }}" target="_blank">GitHub</a>
+                </div>
+                {% endif %}
+                {% if cv.personal_info.linkedin %}
+                <div class="contact-card">
+                    <span class="contact-card-icon">💼</span>
+                    <a href="{{ cv.personal_info.linkedin }}" target="_blank">LinkedIn</a>
+                </div>
+                {% endif %}
+            </div>
+        </header>
+
+        <div class="cv-body">
+            <main class="main-content">
+                {% if cv.summary %}
+                <div class="terminal-summary">
+                    {{ cv.summary }}
+                </div>
+                {% endif %}
+
+                <section class="section">
+                    <h2 class="section-title">Experience</h2>
+                    {% for job in cv.experience %}
+                    <div class="experience-item">
+                        <h3 class="job-title">{{ job.title }}</h3>
+                        <div class="company">{{ job.company }} • {{ job.location }}</div>
+                        <div class="duration">{{ job.duration }}</div>
+                        <ul class="achievements">
+                            {% for achievement in job.achievements %}
+                            <li>{{ achievement }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Featured_Projects</h2>
+                    {% for project in cv.projects %}
+                    <div class="project-item">
+                        <h3 class="project-title">{{ project.name }}</h3>
+                        <p class="project-description">{{ project.description }}</p>
+                        
+                        <div class="project-tech">
+                            {% for tech in project.tech_stack %}
+                            <span class="project-tech-badge">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+
+                        {% if project.highlights %}
+                        <ul class="project-highlights">
+                            {% for highlight in project.highlights %}
+                            <li>{{ highlight }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                        <div class="project-links">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank" class="project-link">
+                                &lt;/&gt; Code
+                            </a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" target="_blank" class="project-link">
+                                🚀 Live
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                <section class="section">
+                    <h2 class="section-title" style="font-size: 1.1rem;">Tech_Stack</h2>
+                    <div class="tech-matrix">
+                        {% for category, skills in cv.skills.items() %}
+                        <div class="tech-category">
+                            <div class="tech-category-title">{{ category.replace('_', '_').upper() }}</div>
+                            <div class="tech-grid">
+                                {% for skill in skills %}
+                                <span class="tech-badge">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title" style="font-size: 1.1rem;">Education</h2>
+                    <div class="education-timeline">
+                        {% for edu in cv.education %}
+                        <div class="education-item">
+                            <div class="degree">{{ edu.degree }}</div>
+                            <div class="school">{{ edu.school }}</div>
+                            <div class="education-duration">{{ edu.duration }}</div>
+                            {% if edu.gpa %}
+                            <div style="color: var(--success); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">GPA: {{ edu.gpa }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                {% if cv.certifications %}
+                <section class="section">
+                    <h2 class="section-title" style="font-size: 1.1rem;">Certifications</h2>
+                    <div class="cert-grid">
+                        {% for cert in cv.certifications %}
+                        <div class="cert-item">
+                            <div class="cert-name">{{ cert.name }}</div>
+                            <div class="cert-issuer">{{ cert.issuer }}</div>
+                            <div class="cert-date">{{ cert.date }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+</body>
+</html>
